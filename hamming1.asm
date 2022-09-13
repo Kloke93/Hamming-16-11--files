@@ -1151,7 +1151,7 @@ endp NewFile
 ;	bx: indicates where to store bits (to_encode_bits or to_decode_bits)
 ;	dx: how many bits are available to extract
 ; Return: All bits extracted in an array
-; Description: Extracts from a byte an amount of bits and stores them
+; Description: Extracts from a byte a number of bits and stores them
 ;-------------------------------------------------------;
 extract_buffer_offset equ [word ptr bp + 04h]
 proc ExtractBits
