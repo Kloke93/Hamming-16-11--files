@@ -3,6 +3,7 @@
 ;              this code is a linear error-correcting code
 ; Name: Tomas Dal Farra
 ; Date: 31/08/2022
+; Assembly 8086 in DOSBox-X 0.84.1
 ;-------------------------------------------------------;
 IDEAL
 MODEL small
