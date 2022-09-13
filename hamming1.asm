@@ -717,7 +717,7 @@ created_bin_file:
 endp NewBinaryFile
 ;-------------------------------------------------------;
 ; EncodeFile
-; Parameters: None
+; Parameters:  All parameters that inner procedures require 
 ; Return: Encoded binary file with all the code needed 
 ; Description: Encodes all the file to hamming code
 ; Also: Last bit according to protocol 
@@ -943,7 +943,7 @@ in_domain:
 endp BitsToBytes
 ;-------------------------------------------------------;
 ; DecodeFile
-; Parameters: None
+; Parameters: All parameters that inner procedures require 
 ; Return: Decoded binary file with all the code needed 
 ; Description: Decodes all the file to hamming code
 ;-------------------------------------------------------;
