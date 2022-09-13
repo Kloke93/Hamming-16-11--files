@@ -95,8 +95,8 @@ endp Initiate
 ; Parameters: 
 ;		err_choice: Error message to print when not one of the options is selected
 ;		choose_msg: Message to prompt again the user to select an option
-; Return: to choice_num variable the option choosen
-; Description: gets user choice and checks if its a valid input
+; Return: to choice_num variable the option chosen
+; Description: gets user's choice and checks if it's a valid input
 ;-------------------------------------------------------;
 proc GetOption
 	push ax
@@ -133,7 +133,7 @@ endp GetOption
 ;		GetData_amount: A number either 11 or 16 
 ;		GetData_err_amount: Error message for wrong amount of characters
 ;		GetData_promt_msg: The corresponding message to prompt the user
-;		[err_not_bit]: Error message when character entered it's neither 1 or 0
+;		[err_not_bit]: Error message when character entered it's neither 1 nor 0
 ; Return: data entered by the user in to_encode_bits or to_decode_bits
 ; Description: Gets from the user the data (bits) required
 ;-------------------------------------------------------;
@@ -234,7 +234,7 @@ endp AssignData
 ;	[encoded_bits]: with all data bits we determine the parity bits
 ;	parity_group_amount: how many parity groups to check
 ; Return: Encoded bits in [encoded_bits]
-; Description: we assign all parity bits to have the full encoded bits
+; Description: We assign all parity bits to have the full encoded bits
 ;-------------------------------------------------------;
 parity_group equ [word ptr bp - 02h]  ; to determine which group we are checking
 parity_group_amount equ [word ptr bp + 04h]
@@ -330,7 +330,7 @@ endp PrintCode
 ;	offset_to_decode: offset of array with encoded bits
 ; Return: In ax the syndrome 
 ; Description: The syndrome is a vector that indicate which parity bits
-;				were incorrect but I will treat it as an index
+;				were incorrect, but I will treat it as an index (gets syndrome)
 ;-------------------------------------------------------;
 offset_to_decode equ [word ptr bp + 04h]
 syndrome_index equ [word ptr bp - 02h]	; to store the return value temporary
@@ -435,7 +435,7 @@ endp DecodeData
 ; Return: None
 ; Description: Prints a number in decimal system
 ; https://www.geeksforgeeks.org/8086-program-to-print-a-16-bit-decimal-number/
-; that is the source code I made little changes
+; that is the source code, I made little changes
 ;-------------------------------------------------------;
 hexa_num equ [word ptr bp + 04h]
 proc PrintNum
@@ -474,7 +474,7 @@ endp PrintNum
 ;	[decoded_bits]: where the bit needs to be flipped
 ; Return: None
 ; Description: Flips the bit that had an error
-; Note: if one parity bit has the error we dont flip any bit
+; Note: if one parity bit has the error we don't flip any bit
 ;-------------------------------------------------------;
 encoded_bit_index equ [word ptr bp + 04h]
 ;parity_index equ [word ptr bp - 02h]	;local variable to indicate next parity bit index
@@ -512,8 +512,8 @@ endp CorrectBit
 ; Parameters:
 ;	[err_one_bit], [err_two_bit], [no_err] and [reminder]: messages for user
 ;	[decoded_bits]: not corrected decoded bits
-;	syndrome_bits as the syndrome
-;	parity0_bits as an indicator of correctness in the whole block parity
+;	syndrome_bits: as the syndrome (in description as ax)
+;	parity0_bits: as an indicator of correctness in the whole block parity (in description as dx)
 ; Return: None (prints messages)
 ; Description: there are multiple error situations:
 ;	1) no error (ax = 0 && dx = 0)
@@ -522,8 +522,8 @@ endp CorrectBit
 ;	4) bigger errors, hamming codes can't handle this and we assume they don't happen
 ; Also: this procedure prints some string as needed
 ;-------------------------------------------------------;
-syndrome_bits equ [word ptr bp + 04h]
-parity_bit equ [word ptr bp + 06h]
+syndrome_bits equ [word ptr bp + 04h]	; push ax
+parity_bit equ [word ptr bp + 06h]		; push dx
 proc CorrectError
 	push bp
 	mov bp, sp
@@ -840,7 +840,7 @@ endp EncodeFile
 ;	fhandler: handler of the file we want to read from
 ;	bytes_amount: how many bytes we want to read
 ;	buffer_offset: offset of the buffer to store the bytes read
-; Return: In buffer_offset bytes read and in ax amount of bytes read
+; Return: In buffer_offset bytes read and in ax number of bytes read
 ; Description: Reads an amount of bytes from a file and saves 
 ;				the bytes
 ;-------------------------------------------------------;
@@ -1147,7 +1147,7 @@ endp NewFile
 ; ExtractBits
 ; Parameters: 
 ;	cx: how many bits we want to extract to buffer
-;	extract_buffer_offset: offset to array were we take the bits from
+;	extract_buffer_offset: offset to array where we take the bits from
 ;	bx: indicates where to store bits (to_encode_bits or to_decode_bits)
 ;	dx: how many bits are available to extract
 ; Return: All bits extracted in an array
