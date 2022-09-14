@@ -1184,14 +1184,15 @@ start:
 display_menu:
 	call Initiate
 	call GetOption
+	cmp [choice_num], 1
+	je path_encode
 	cmp [choice_num], 2
 	je path_decode
 	cmp [choice_num], 3
 	je path_encode_file
 	cmp [choice_num], 4
 	je path_decode_file
-	cmp [choice_num], 5
-	je help_end_path
+	jmp paths_end
 path_encode:						;Encoding path
 	push offset choice_path1
 	push offset err_not11
@@ -1228,8 +1229,6 @@ path_decode:					;Decoding path
 	call PrintCode
 	call NewLine
 	jmp display_menu
-help_end_path:
-	jmp paths_end
 path_encode_file:
 	call OpenFile
 	call NewBinaryFile
